@@ -18,7 +18,9 @@ public class PlayerController : MonoBehaviour
     public bool isCarried; //TODO
     public bool isOnGround; //TODO
     public bool dashReady = true;
-    public bool isTree = false;
+    public float transformTime;
+    protected bool isTree = false;
+    protected bool isMegaBeaver = false;
 
     public float rotationSpeed;
 
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public void FixedUpdate()
     {
         MovePlayer();
+
 
 
         if (Input.GetKeyDown(KeyCode.Space)) // TODO: Make it jump with button
@@ -80,6 +83,21 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(DashCooldown());
     }
 
+    public void LessPlayer()
+    {
+        isMegaBeaver = false;
+        playerRb.transform.localScale = playerRb.transform.localScale / 4;
+    }
+
+    public void GrowPlayer()
+    {
+        Debug.Log("77");
+        isMegaBeaver = true;
+        playerRb.transform.localScale = playerRb.transform.localScale * 4;
+        Invoke("LessPlayer", transformTime);
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (!isTree)
@@ -93,6 +111,10 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Plot")
         {
             isTree = false;
+        }
+        if(other.gameObject.tag == "Buff")
+        {
+
         }
     }
 

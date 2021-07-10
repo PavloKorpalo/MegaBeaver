@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public bool isCarried; //TODO
     public bool isOnGround; //TODO
     public bool dashReady = true;
+    public bool isTree = false;
 
     public float rotationSpeed;
 
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public void FixedUpdate()
     {
         MovePlayer();
+
 
         if (Input.GetKeyDown(KeyCode.Space)) // TODO: Make it jump with button
         {
@@ -77,6 +79,24 @@ public class PlayerController : MonoBehaviour
         
         StartCoroutine(DashCooldown());
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!isTree)
+        {
+            if (other.gameObject.tag != "Plot")
+            {
+                Destroy(other.gameObject);
+                isTree = true;
+            }
+        }
+        if (other.gameObject.tag == "Plot")
+        {
+            isTree = false;
+        }
+    }
+
+
 
     #region Timer Coroutine
     IEnumerator DashTimer()

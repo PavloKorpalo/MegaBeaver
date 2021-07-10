@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForse;
     [SerializeField] private float dashSpeed;
 
-    public GameObject eye;
+    public GameObject Mayak;
 
     public VariableJoystick variableJoystick;
     public Rigidbody playerRb;
@@ -83,8 +83,8 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Timer go");
         //Vector3 playerDirecrion = new Vector3(eye.transform.position.x, eye.transform.position.y, eye.transform.position.z);
-        Vector3 ggggggg = new Vector3 (playerRb.transform.rotation.eulerAngles.y, 0, 0);
-        playerRb.AddForce(ggggggg * dashSpeed, ForceMode.Impulse);
+        Vector3 playerDirection = Mayak.transform.position - playerRb.transform.position;
+        playerRb.AddForce(playerDirection * dashSpeed, ForceMode.Impulse);
         yield return new WaitForSeconds(1.0f);
     }
 

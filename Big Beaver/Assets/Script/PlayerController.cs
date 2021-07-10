@@ -10,14 +10,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForse;
     [SerializeField] private float dashSpeed;
 
-    public GameObject eye;
+    public GameObject mayak;
 
     public VariableJoystick variableJoystick;
     public Rigidbody playerRb;
 
     public bool isCarried; //TODO
     public bool isOnGround; //TODO
-    public bool dashReady = true;
+    bool dashReady = true;
 
     public float rotationSpeed;
 
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
             JumpPlayer();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashReady) // TODO: Make it jump with button
+        if (Input.GetKeyDown(KeyCode.LeftControl)) // TODO: Make it jump with button
         {
             DashPlayer();
         }
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
     // Make our beaver jump with a space button
     public void JumpPlayer()
     {
-        if (!isOnGround)
+        if (isOnGround)
         {
             playerRb.AddForce(Vector3.up * jumpForse, ForceMode.Impulse);
         }
@@ -69,23 +69,36 @@ public class PlayerController : MonoBehaviour
     // TODO
     public void DashPlayer()
     {
-        Debug.Log("Do Dash");
-        dashReady = false;
+        if (dashReady)
+        {
+            Debug.Log("Do Dash");
+            //dashReady = false;
 
-        
-        StartCoroutine(DashTimer());
-        
-        StartCoroutine(DashCooldown());
+            StartCoroutine(DashTimer());
+            StopCoroutine(DashTimer());
+            //Debug.Log("Ready? - " + dashReady);
+
+            StartCoroutine(DashCooldown());
+            StopCoroutine(DashCooldown());
+            //dashReady = true;
+            //Debug.Log("Ready? - " + dashReady);
+        }
+
     }
 
     #region Timer Coroutine
     IEnumerator DashTimer()
     {
         Debug.Log("Timer go");
-        //Vector3 playerDirecrion = new Vector3(eye.transform.position.x, eye.transform.position.y, eye.transform.position.z);
-        Vector3 ggggggg = new Vector3 (playerRb.transform.rotation.eulerAngles.y, 0, 0);
-        playerRb.AddForce(ggggggg * dashSpeed, ForceMode.Impulse);
+        //Vector3 playerDirecrion = new Vector3(eye.t   ransform.position.x, eye.transform.position.y, eye.transform.position.z);
+        //Vector3 ggggggg = new Vector3 (playerRb.transform.rotation.eulerAngles.y, 0, 0);
+        //playerRb.AddForce(ggggggg * dashSpeed, ForceMode.Impulse);
+        dashReady = false;
+        Vector3 playerDirection = mayak.transform.position - playerRb.transform.position;
+        playerRb.AddForce(playerDirection * dashSpeed, ForceMode.Impulse);
+
         yield return new WaitForSeconds(1.0f);
+        Debug.Log("Ready? - " + dashReady);
     }
 
     IEnumerator DashCooldown()
@@ -93,6 +106,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Cooldown go");
         yield return new WaitForSeconds(3.0f);
         dashReady = true;
+        Debug.Log("Ready? - " + dashReady);
     }
     #endregion
 }

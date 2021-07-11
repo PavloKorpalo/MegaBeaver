@@ -9,8 +9,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForse;
     [SerializeField] private float dashSpeed;
+    private TreeScript _tree;
 
-    public GameObject eye;
+    public GameObject Mayak;
+    
 
     public VariableJoystick variableJoystick;
     public Rigidbody playerRb;
@@ -18,13 +20,22 @@ public class PlayerController : MonoBehaviour
     public bool isCarried; //TODO
     public bool isOnGround; //TODO
     public bool dashReady = true;
+    public float transformTime;
+    protected bool isTree = false;
+    protected bool isMegaBeaver = false;
 
     public float rotationSpeed;
 
-
+    private void Start()
+    {
+        _tree = FindObjectOfType<TreeScript>();
+        
+    }
     public void FixedUpdate()
     {
         MovePlayer();
+
+
 
         if (Input.GetKeyDown(KeyCode.Space)) // TODO: Make it jump with button
         {
@@ -78,21 +89,66 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(DashCooldown());
     }
 
+    public void LessPlayer()
+    {
+        isMegaBeaver = false;
+        playerRb.transform.localScale = playerRb.transform.localScale / 4;
+    }
+
+    public void GrowPlayer()
+    {
+        Debug.Log("77");
+        isMegaBeaver = true;
+        playerRb.transform.localScale = playerRb.transform.localScale * 4;
+        Invoke("LessPlayer", transformTime);
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.gameObject.tag == "Tree")
+        {
+            
+            DashPlayer();
+            
+
+        }
+
+        if (other.gameObject.tag == "Plot")
+        {
+            Destroy(other.gameObject);
+            DashPlayer();
+            Debug.Log("Plot Destroyed");
+            
+        }
+        if (other.gameObject.tag == "Buff")
+        {
+            Destroy(other.gameObject);
+            GrowPlayer();
+            Debug.Log("Plot Destroyed");
+        }
+    }
+
+
+
     #region Timer Coroutine
     IEnumerator DashTimer()
     {
-        Debug.Log("Timer go");
+        
         //Vector3 playerDirecrion = new Vector3(eye.transform.position.x, eye.transform.position.y, eye.transform.position.z);
-        Vector3 ggggggg = new Vector3 (playerRb.transform.rotation.eulerAngles.y, 0, 0);
-        playerRb.AddForce(ggggggg * dashSpeed, ForceMode.Impulse);
+        Vector3 playerDirection = Mayak.transform.position - playerRb.transform.position;
+        playerRb.AddForce(playerDirection * -dashSpeed, ForceMode.Impulse);
         yield return new WaitForSeconds(1.0f);
     }
 
     IEnumerator DashCooldown()
     {
-        Debug.Log("Cooldown go");
+        
         yield return new WaitForSeconds(3.0f);
         dashReady = true;
     }
+
+   
     #endregion
 }

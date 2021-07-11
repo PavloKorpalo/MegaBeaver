@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Environment
+  - Plot
+  - Buff
   layers:
   - Default
   - TransparentFX

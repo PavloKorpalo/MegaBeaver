@@ -61,8 +61,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHit: 0
   HitCount: 0
+  ImpulseSpeed: 0
   Tree: {fileID: 6466310191723720493}
   TreePosition: {fileID: 6466310191723720483}
+  Player: {fileID: 0}
   IsTreeDestroyed: 0
 --- !u!1001 &7399355423213504706
 PrefabInstance:

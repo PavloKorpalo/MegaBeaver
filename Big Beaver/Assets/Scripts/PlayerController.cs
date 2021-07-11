@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public float transformTime;
     protected bool isTree = false;
     protected bool isMegaBeaver = false;
+    protected bool isGround = true;
 
     public float rotationSpeed;
 
@@ -71,9 +72,10 @@ public class PlayerController : MonoBehaviour
     // Make our beaver jump with a space button
     public void JumpPlayer()
     {
-        if (!isOnGround)
+        if (isGround)
         {
             playerRb.AddForce(Vector3.up * jumpForse, ForceMode.Impulse);
+            isGround = false;
         }
     }
 
@@ -102,6 +104,10 @@ public class PlayerController : MonoBehaviour
         Invoke("LessPlayer", transformTime);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        isGround = true;
+    }
 
     private void OnTriggerEnter(Collider other)
     {

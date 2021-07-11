@@ -358,10 +358,35 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5698508721893853139, guid: ee5c89d18eed9df48ae75b5fd8311712,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698508721893853139, guid: ee5c89d18eed9df48ae75b5fd8311712,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698508721893853139, guid: ee5c89d18eed9df48ae75b5fd8311712,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7157320932072650198, guid: ee5c89d18eed9df48ae75b5fd8311712,
+        type: 3}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7157320932072650198, guid: ee5c89d18eed9df48ae75b5fd8311712,
         type: 3}
       propertyPath: dashSpeed
-      value: 200
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7157320932072650198, guid: ee5c89d18eed9df48ae75b5fd8311712,
+        type: 3}
+      propertyPath: jumpForse
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7157320932072650198, guid: ee5c89d18eed9df48ae75b5fd8311712,
         type: 3}

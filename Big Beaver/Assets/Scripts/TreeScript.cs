@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class TreeScript : MonoBehaviour
 {
-    
-
 
     [SerializeField] public int TotalHit;
     public int HitCount;
+    public float ImpulseSpeed;
     public GameObject Tree;
     public Transform TreePosition;
+    public Rigidbody Player;
     public bool IsTreeDestroyed;
-
 
 
     // Start is called before the first frame update
@@ -31,9 +30,10 @@ public class TreeScript : MonoBehaviour
         {
             HitCount++;
             Debug.Log("Hit" + HitCount);
-            
+            Player.AddForce(Vector3.back * ImpulseSpeed, ForceMode.Impulse);
             if (HitCount == TotalHit)
             {
+                
                 Destroy(this.gameObject);
                 HitCount = 0;
                 IsTreeDestroyed = true;

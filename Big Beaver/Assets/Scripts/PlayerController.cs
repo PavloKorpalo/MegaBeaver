@@ -82,7 +82,6 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Do Dash");
         dashReady = false;
-
         
         StartCoroutine(DashTimer());
         

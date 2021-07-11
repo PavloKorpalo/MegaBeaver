@@ -7,6 +7,8 @@ TagManager:
   - Environment
   - Plot
   - Buff
+  - Tree
+  - Woodlog
   layers:
   - Default
   - TransparentFX

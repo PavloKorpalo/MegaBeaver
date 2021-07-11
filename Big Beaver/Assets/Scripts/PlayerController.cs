@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -109,6 +110,11 @@ public class PlayerController : MonoBehaviour
         isGround = true;
     }
 
+    public void GameOver()
+    {
+        SceneManager.LoadScene("PreFinalScene");
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
 
@@ -132,6 +138,10 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
             GrowPlayer();
             Debug.Log("Plot Destroyed");
+        }
+        if (other.gameObject.tag == "Enemy")
+        {
+            GameOver();
         }
     }
 
